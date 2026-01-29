@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart Shoppe List Lucu</title>
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@500;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --pink-bg: #ffe4e9;
+            --pink-card: #ff8fa3;
+            --pink-light: #fff0f3;
+            --text-dark: #5c5c5c;
+        }
+
+        body {
+            background-color: var(--pink-bg);
+            background-image: radial-gradient(#ffb3c1 1px, transparent 1px);
+            background-size: 20px 20px;
+            font-family: 'Quicksand', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+        }
+
+        .container {
+            background: white;
+            width: 350px;
+            border-radius: 25px;
+            overflow: hidden;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            border: 4px solid var(--pink-card);
+        }
+
+        .header {
+            background-color: var(--pink-card);
+            padding: 20px;
+            text-align: center;
+            color: white;
+        }
+
+        .header h1 {
+            margin: 0;
+            font-size: 24px;
+            letter-spacing: 1px;
+        }
+
+        .header p {
+            margin: 5px 0 0;
+            font-size: 12px;
+            font-style: italic;
+            opacity: 0.9;
+        }
+
+        .input-section {
+            padding: 15px;
+            display: flex;
+            gap: 10px;
+            background: var(--pink-light);
+        }
+
+        input[type="text"] {
+            flex: 1;
+            padding: 10px;
+            border: 2px solid var(--pink-card);
+            border-radius: 10px;
+            outline: none;
+            font-family: inherit;
+        }
+
+        .add-btn {
+            background: var(--pink-card);
+            color: white;
+            border: none;
+            padding: 0 15px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+
+        .add-btn:hover {
+            background: #ff4d6d;
+        }
+
+        ul {
+            list-style: none;
+            padding: 10px 20px;
+            margin: 0;
+            max-height: 300px;
+            overflow-y: auto;
+        }
+
+        li {
+            display: flex;
+            align-items: center;
+            padding: 12px 0;
+            border-bottom: 1.5px dashed var(--pink-card);
+            color: var(--text-dark);
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(5px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        li:last-child {
+            border-bottom: none;
+        }
+
+        .checkbox {
+            margin-right: 15px;
+            cursor: pointer;
+            width: 18px;
+            height: 18px;
+            accent-color: var(--pink-card);
+        }
+
+        .item-text {
+            flex: 1;
+        }
+
+        .checked {
+            text-decoration: line-through;
+            color: #ccc;
+        }
+
+        .delete-btn {
+            background: none;
+            border: none;
+            color: #ffb3c1;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        .footer {
+            padding: 15px;
+            text-align: center;
+            font-size: 10px;
+            color: var(--pink-card);
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="header">
+        <h1>🛒✨<br>Shoppe List</h1>
+        <p>Don't forget the treats!</p>
+    </div>
+
+    <div class="input-section">
+        <input type="text" id="itemInput" placeholder="Ketik barang & emoji...">
+        <button class="add-btn" onclick="addItem()">Tambah</button>
+    </div>
+
+    <ul id="listContainer">
+        </ul>
+
+    <div class="footer">
+        Dibuat dengan penuh cinta & keinginan belanja 💖
+    </div>
+</div>
+
+<script>
+    function addItem() {
+        const input = document.getElementById('itemInput');
+        const list = document.getElementById('listContainer');
+        
+        if (input.value.trim() === '') return;
+
+        // Membuat element LI
+        const li = document.createElement('li');
+        
+        li.innerHTML = `
+            <input type="checkbox" class="checkbox" onclick="toggleCheck(this)">
+            <span class="item-text">${input.value}</span>
+            <button class="delete-btn" onclick="this.parentElement.remove()">✕</button>
+        `;
+
+        list.appendChild(li);
+        input.value = ''; // Kosongkan input setelah tambah
+    }
+
+    function toggleCheck(checkbox) {
+        const text = checkbox.nextElementSibling;
+        if (checkbox.checked) {
+            text.classList.add('checked');
+        } else {
+            text.classList.remove('checked');
+        }
+    }
+
+    // Tambah dengan tombol Enter
+    document.getElementById('itemInput').addEventListener('keypress', function (e) {
+        if (e.key === 'Enter') {
+            addItem();
+        }
+    });
+</script>
+
+</body>
+</html>
